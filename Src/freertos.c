@@ -24,6 +24,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "sw_gui.h"
+#include "PWM.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
@@ -130,8 +131,8 @@ uint8_t index;
 			{AD_ConvertVal[index]=(AD3_ConvertVal[index-16]*10)/62;}
 			
 		}
-write_AD_Value(0x0201,AD_ConvertVal,24);		
-	//DMA_Usart_Send(AD_TransValue, 48);
+		write_AD_Value(0x0201,AD_ConvertVal,24);		
+		//DMA_Usart_Send(AD_TransValue, 48);
 		
 		if(recv_end_flag == 1)   //接收完成标志
     {
@@ -142,6 +143,7 @@ write_AD_Value(0x0201,AD_ConvertVal,24);
         recv_end_flag = 0;//清除接收结束标志位
         //memset(rx_buffer,0,sizeof(rx_buffer));
     } 
+		PWM_Freq_DC(0,50,1000);
 			
     osDelay(500);
   }
