@@ -43,7 +43,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+uint32_t Duty[8],Freq[8],T_index,AD_Result[24];
+uint8_t index;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -114,7 +115,7 @@ void StartDefaultTask(void *argument)
 {
     
     
-uint8_t index;
+
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   for(;;)
@@ -130,8 +131,10 @@ uint8_t index;
 			else
 			{AD_ConvertVal[index]=(AD3_ConvertVal[index-16]*10)/62;}
 			
+			AD_Result[index]=AD_ConvertVal[index];
+			
 		}
-		write_AD_Value(0x0201,AD_ConvertVal,24);		
+		//write_AD_Value(0x0201,AD_ConvertVal,24);		
 		//DMA_Usart_Send(AD_TransValue, 48);
 		
 		if(recv_end_flag == 1)   //接收完成标志
@@ -143,8 +146,32 @@ uint8_t index;
         recv_end_flag = 0;//清除接收结束标志位
         //memset(rx_buffer,0,sizeof(rx_buffer));
     } 
-		PWM_Freq_DC(0,50,1000);
+		for(index=0;index<8;index++)
+		{
+					Duty[index]=(AD_Result[index*2+0]*100)/2047;
+					Freq[index]=(AD_Result[index*2+1])*2;
+		}
+		
+		
+		
+		for(index=0;index<8;index++)
+		{
+					T_index=index;
+
+				PWM_Freq_DC(T_index,Duty[index],Freq[index]);
 			
+		}
+	/*	PWM_Freq_DC(0,20,500);
+		PWM_Freq_DC(1,40,800);
+		PWM_Freq_DC(2,60,1000);
+		PWM_Freq_DC(3,80,1200);
+		
+		
+		PWM_Freq_DC(4,20,1000);
+		PWM_Freq_DC(5,40,800);
+		PWM_Freq_DC(6,60,1000);
+		PWM_Freq_DC(7,80,1200);*/
+		/**/
     osDelay(500);
   }
   /* USER CODE END StartDefaultTask */

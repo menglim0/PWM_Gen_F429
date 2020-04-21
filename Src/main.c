@@ -124,6 +124,14 @@ int main(void)
   MX_ADC1_Init();
   MX_ADC3_Init();
   MX_TIM1_Init();
+	MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+	MX_TIM8_Init();
+  MX_TIM9_Init();
+  MX_TIM10_Init();
+  MX_TIM11_Init();
+  MX_TIM12_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_RESET);
