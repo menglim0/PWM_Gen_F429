@@ -44,7 +44,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 uint32_t Duty[8],Freq[8],T_index,AD_Result[24];
-uint8_t index;
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -114,7 +114,7 @@ osKernelInitialize();
 void StartDefaultTask(void *argument)
 {
     
-    
+    uint8_t index;
 
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
@@ -131,7 +131,7 @@ void StartDefaultTask(void *argument)
 			else
 			{AD_ConvertVal[index]=(AD3_ConvertVal[index-16]*10)/62;}
 			
-			AD_Result[index]=AD_ConvertVal[index];
+			AD_Result[index]=AD_ConvertVal[index]*62/20;
 			
 		}
 		//write_AD_Value(0x0201,AD_ConvertVal,24);		

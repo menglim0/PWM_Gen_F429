@@ -55,7 +55,7 @@ void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq)
 		  /* Set the Prescaler value */
 		 TIM3->ARR = arr_peroid-1;
 		TIM3->PSC =Var_psc;
-		TIM3->CCR4 = compare_dutycycle;
+		TIM3->CCR1 = compare_dutycycle;
 		//TIM_SetCompare2(TIM3,compare_dutycycle);	
 		break;
 						
@@ -67,15 +67,27 @@ void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq)
 		break;
 								
 		case 4:
-		 TIM5->ARR = arr_peroid-1;
-		TIM5->PSC =Var_psc;
-		TIM5->CCR2 = compare_dutycycle;
+		 TIM9->ARR = arr_peroid-1;
+		TIM9->PSC =Var_psc;
+		TIM9->CCR1 = compare_dutycycle;
 		break;
 										
 		case 5:
-		 TIM8->ARR = arr_peroid-1;
-		TIM8->PSC =Var_psc;
-		TIM8->CCR2 = compare_dutycycle;
+		 TIM10->ARR = arr_peroid-1;
+		TIM10->PSC =Var_psc;
+		TIM10->CCR1 = compare_dutycycle;
+		break;
+		
+				case 6:
+		 TIM11->ARR = arr_peroid-1;
+		TIM11->PSC =Var_psc;
+		TIM11->CCR1 = compare_dutycycle;
+		break;
+										
+		case 7:
+		 TIM12->ARR = arr_peroid-1;
+		TIM12->PSC =Var_psc;
+		TIM12->CCR1 = compare_dutycycle;
 		break;
 		
 		default:
@@ -88,6 +100,7 @@ void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq)
 
  /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
  
  
  
