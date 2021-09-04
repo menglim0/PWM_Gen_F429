@@ -30,6 +30,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "lcd.h"
+#include "stdlib.h" 
+#include "delay.h"
+#include "display.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,6 +46,9 @@ uint8_t AD_TransValue[48];
 uint16_t rx_len = 0;             //接收一帧数据的长度
 uint8_t recv_end_flag = 0;    //一帧数据接收完成标志
 uint8_t rx_buffer[100]={0};   //接收数据缓存
+
+
+uint8_t aTxStartMessages[] = "\r start:\r\n";
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -49,9 +56,9 @@ uint8_t rx_buffer[100]={0};   //接收数据缓存
 int fputc(int ch, FILE *f)
 {
 
-HAL_UART_Transmit(&huart1,(uint8_t*)&ch,1,0xFFFF);
+HAL_UART_Transmit(&huart3,(uint8_t*)&ch,1,0xFFFF);
 
-while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
+while (HAL_UART_GetState(&huart3) == HAL_UART_STATE_RESET);
 
 return ch;
 }
@@ -133,16 +140,27 @@ int main(void)
   MX_TIM11_Init();
   MX_TIM12_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  MX_USART3_UART_Init();
+  /* USER CODE BEGIN 2 */
+	HAL_UART_Receive_IT(&huart2, aRxBuffer, 2);
+	HAL_UART_Transmit(&huart3, aTxStartMessages, 100, 1000);	
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_RESET);
 	
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&AD_ConvertVal, 16);
 	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)&AD3_ConvertVal, 8);
 	
-	printf("\n===函数Printf函数发送数据===\n");
+//	printf("\n===函数Printf函数发送数据===\n");
 	
-	__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
-	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);
+//	__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+//	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);
+	delay(500);
+	Lcd_Init();
+	LCD_Clear(WHITE); //清屏	
+	delay(500);
+ 	POINT_COLOR=RED;//设置字体为红色 
+	xianshi();	   //显示信息
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

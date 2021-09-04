@@ -98,6 +98,7 @@ void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq)
 
 }
 
+
  /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

@@ -229,6 +229,7 @@ void write_multiple_variable_store_82(uint16_t address,uint8_t data_length,uint1
 
    HAL_UART_Transmit_DMA(&huart1, array,nDataLen);
  } 
+ 
  /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
  

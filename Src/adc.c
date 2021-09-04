@@ -83,7 +83,7 @@ void MX_ADC1_Init(void)
   sConfig.Rank = 4;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
-    Error_Handler();
+    Error_Handler(); 
   }
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
   */
