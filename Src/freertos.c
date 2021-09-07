@@ -251,6 +251,7 @@ void StartDefaultTask(void *argument)
 		}
 		
 		USART_HMI_Display(USART_HMI_DisplayData);
+		USART_HMI_Display(USART_HMI_DisplayData);
 	/*	PWM_Freq_DC(0,20,500);
 		PWM_Freq_DC(1,40,800);
 		PWM_Freq_DC(2,60,1000);
@@ -269,7 +270,10 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void EC18_Bench()
+{
 
+}
      
 /* USER CODE END Application */
 
